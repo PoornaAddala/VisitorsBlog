@@ -1,19 +1,109 @@
 ﻿@{
-    ViewData["Title"] = "Data";
+    ViewData["Title"] = "SPADE";
 }
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data</title>
-    <link rel="stylesheet" href="~/css/sites.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewData["Title"]</title>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="~/css/sb-admin-2.min.css" rel="stylesheet">
+    <style>
+        /* Sidebar styling */
+        .sidebar {
+            background-color: #08a8f1;
+        }
+
+        /* Nav links styling */
+        .nav-link {
+            color: #ffffff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link:hover {
+            background-color: #070ff0a7;
+            border-radius: 5px;
+        }
+
+        .nav-link i {
+            margin-right: 10px;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Introduction and team members styling */
+        .intro {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .team-members {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .team-member {
+            text-align: center;
+        }
+
+        .team-member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .team-member img:hover {
+            transform: scale(1.1);
+        }
+
+        /* Footer styling */
+        .sticky-footer {
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Bottom image styling */
+        .bottom-image {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .bottom-image img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        body {
+            width: 100%; 
+            box-sizing: border-box; 
+        }
+    </style>
 </head>
-<body>
-    <header>
-        <nav>
-            <div class="container">
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <img src="~/img/favicon.ico" alt="Icon" width="30" height="30" style="margin-right: 10px;">
+                <div class="sidebar-brand-text mx-3">SPADE</div>
+            </a>
+
+            <hr class="sidebar-divider my-0">
+            <br>
+            <br>
+            <!-- <div class="container">
                 <h1 class="logo">Travel Blog</h1>
                 <ul class="nav-links">
                     <li><a href="@Url.Action("Index", "Home")">Home</a></li>
@@ -21,67 +111,117 @@
                     <li><a href="@Url.Action("Index", "Data")">Data</a></li>
                     <li><a href="@Url.Action("Index", "About")">About</a></li>
                 </ul>
+            </div> -->
+            
+<!-- <li><a href="@Url.Action("Index", "Home")">Home</a></li> -->
+            <li class="nav-item active">
+                <!-- <a class="nav-link" href="index.html"> -->
+                <a class="nav-link" href="@Url.Action("Index", "Home")">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Home Page</span>
+                </a>
+            </li>
+            <hr class="sidebar-divider">
+            <li class="nav-item active">
+                <a class="nav-link" href="@Url.Action("Index", "Create")">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Assessments/Grades</span>
+                </a>
+            </li>
+            <hr class="sidebar-divider">
+            <li class="nav-item active">
+                <a class="nav-link" href="@Url.Action("Index", "Blog")">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Performance Trends</span>
+                </a>
+            </li>
+            <hr class="sidebar-divider">
+            <li class="nav-item active">
+                <a class="nav-link" href="@Url.Action("Index", "Data")">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>About Page</span>
+                </a>
+            </li>
+
+            <hr class="sidebar-divider">
+
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-        </nav>
-    </header>
-    <section class="database">
-        <div class="container">
-            <h2>Likes Data</h2>
-            <table border="1">
-                <tr>
-                    @foreach (var key in ((List<Dictionary<string, string>>)ViewData["Likes"]).First().Keys)
-                    {
-                        <th>@key</th>
-                    }
-                </tr>
-                @foreach (var item in (List<Dictionary<string, string>>)ViewData["Likes"])
-                {
-                    <tr>
-                        @foreach (var value in item.Values)
-                        {
-                            <td>@value</td>
-                        }
-                    </tr>
-                }
-            </table>
-            <h2>Visitors Data</h2>
-            <table border="1">
-                <tr>
-                    @foreach (var key in ((List<Dictionary<string, string>>)ViewData["Visitors"]).First().Keys)
-                    {
-                        <th>@key</th>
-                    }
-                </tr>
-                @foreach (var item in (List<Dictionary<string, string>>)ViewData["Visitors"])
-                {
-                    <tr>
-                        @foreach (var value in item.Values)
-                        {
-                            <td>@value</td>
-                        }
-                    </tr>
-                }
-            </table>
-            <h2>Comments Data</h2>
-            <table border="1">
-                <tr>
-                    @foreach (var key in ((List<Dictionary<string, string>>)ViewData["Comments"]).First().Keys)
-                    {
-                        <th>@key</th>
-                    }
-                </tr>
-                @foreach (var item in (List<Dictionary<string, string>>)ViewData["Comments"])
-                {
-                    <tr>
-                        @foreach (var value in item.Values)
-                        {
-                            <td>@value</td>
-                        }
-                    </tr>
-                }
-            </table>
+        </ul>
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <!-- Main content -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </nav>
+                <div class="intro">
+                    <h1>About Page</h1>
+                </div>
+                <div class="team-members">
+                    <div class="team-member">
+                        <img src="~/img/Rupesh.jpg" alt="Rupesh">
+                        <div class="team-member-info">
+                            <h3>Rupesh Purum</h3>
+                            <p>Rupesh dedicated software engineer with 6 years of experience, He brings a wealth of technical expertise, problem-solving skills, and a creative mindset and has a proven track record of working effectively in cross-functional teams. He is passionate about continuous learning and staying at the forefront of industry trends. His notable contributions encompass the meticulous design of the application's data model and the seamless execution of the website's home page.</p>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <img src="~/img/Poorna.jpg" alt="Poorna">
+                        <div class="team-member-info">
+                            <h3>Poorna Chand Addala</h3>
+                            <p>Poorna an aspiring Data Engineer having over three years of experience in designing and developing large-scale data management and processing systems, with a focus on automation and optimization. His Contributions include developing and designing Java script and index.html for the project and completing deployments to the cloud.</p>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <img src="~/img/Sneha.jpg" alt="Sneha">
+                        <div class="team-member-info">
+                            <h3>Sneha Panjala</h3>
+                            <p>Meet Sneha Panjala, a dedicated student at USF's Business Analytics and Information Systems graduate program. She worked for over two years as a Project Engineer and Data Integrations Developer at Wipro Technologies. Her expertise extends to designing web pages, contributing significantly to data modeling, working on creating charts in the performance Trends page, and providing key inputs to the project.</p>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <img src="~/img/Karun.jpg" alt="Karun">
+                        <div class="team-member-info">
+                            <h3>Karun Reddy Beeravalli</h3>
+                            <p>Karun, Currently a student in USF's Business Analytics and Information Systems graduate program, Karun has worked as an Automation Engineer for about 2 years. He has contributed to the project by developing the About Us page and applying CRUD operations to the Assessments and Grade page. He also contributed to creating css files.</p>
+                        </div>
+                    </div>
+                </div>
+                <br>
+
+                <a href="https://github.com/PoornaAddala/Assignment_LookAndFeel" target="_blank" class="github-link" style="display: block; text-align: center; font-size: 20px; font-weight: bold; text-decoration: none; color: #0366d6;">
+                    Github Link
+                </a>
+
+                <br>
+                <h3 style="text-align: center;">ERD Diagram</h3>
+                <div class="bottom-image">
+                    <img src="~/img/ERD_image.png" alt="ERD_image">
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>&copy; SPADE @DateTime.Now.Year</span>
+                    </div>
+                </div>
+            </footer>
         </div>
-    </section>
-    <script src="~/js/script.js"></script>
+    </div>
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 </body>
 </html>
