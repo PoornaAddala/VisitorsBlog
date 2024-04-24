@@ -83,6 +83,25 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Course Selection Dropdown -->
+                    <div class="mb-4">
+                        <label for="courseSelect">Select Course:</label>
+                        <select id="courseSelect" class="form-control">
+                            <option value="course1">Course 1</option>
+                            <option value="course2">Course 2</option>
+                            <option value="course3">Course 3</option>
+                        </select>
+                    </div>
+
+                    <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Student Performance</h6>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="studentPerformanceChart"></canvas>
+                                </div>
+                            </div>
                 </div>
             </div>
             <!-- Footer -->
@@ -97,6 +116,73 @@
     </div>
 
     <!-- Bootstrap core JavaScript -->
+    <!-- Bootstrap core JavaScript -->
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript -->
+    <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages -->
+    <script src="~/js/sb-admin-2.min.js"></script>
+
+    <!-- Chart Initialization and Data -->
+    <script>
+        // Dummy data for student performance scatter plot
+        const studentPerformanceData = {
+            course1: [
+                { x: 60, y: 70 },
+                { x: 75, y: 85 },
+                { x: 50, y: 60 },
+                // Add more data points for course 1
+            ],
+            course2: [
+                { x: 80, y: 90 },
+                { x: 65, y: 75 },
+                { x: 70, y: 80 },
+                // Add more data points for course 2
+            ],
+            course3: [
+                { x: 55, y: 65 },
+                { x: 90, y: 95 },
+                { x: 40, y: 50 },
+                // Add more data points for course 3
+            ]
+        };
+
+        // Initialize chart
+        document.addEventListener('DOMContentLoaded', function () {
+            const ctx = document.getElementById('studentPerformanceChart').getContext('2d');
+            const scatterChart = new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'Student Performance',
+                        borderColor: '#4e73df',
+                        backgroundColor: '#4e73df',
+                        data: studentPerformanceData.course1 // Default data for initial course
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+
+            // Update chart data based on course selection
+            document.getElementById('courseSelect').addEventListener('change', function () {
+                const selectedCourse = this.value;
+                scatterChart.data.datasets[0].data = studentPerformanceData[selectedCourse];
+                scatterChart.update();
+            });
+        });
+    </script>
     <script src="~/vendor/jquery/jquery.min.js"></script>
     <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
