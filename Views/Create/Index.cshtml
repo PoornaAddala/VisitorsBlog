@@ -1,48 +1,206 @@
-﻿@{
-    Layout = null; // This line ensures that no layout is applied to this view
+@{
+    Layout = null; // Assuming no layout is needed
 }
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create New Blog Post</title>
-    <link rel="stylesheet" href="~/css/site.css"> <!-- Using "~/" to refer to the root directory -->
-    <script>
-        function redirectToBlog() {
-            window.location.href = "@Url.Action("Index", "Blog")"; // Using Razor Url.Action to generate the URL
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Student Performance Analysis Dashboard Engine</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://unpkg.com/tabulator-tables/dist/css/tabulator.min.css" rel="stylesheet">
+    <link href="~/css/sb-admin-2.min.css" rel="stylesheet">
+    <style>
+        /* Custom CSS styles here */
+        .sidebar {
+            background-color: #08a8f1;
         }
-    </script>
-</head>
-<body>
-    <header>
-        <nav>
-            <div class="container">
-                <h1 class="logo">Travel Blog</h1>
-                <ul class="nav-links">
-                    <li><a href="@Url.Action("Index", "Home")">Home</a></li> <!-- Using Razor Url.Action to generate the URL -->
-                    <li><a href="@Url.Action("Index", "Blog")">Blog</a></li> <!-- Using Razor Url.Action to generate the URL -->
-                    <li><a href="@Url.Action("Index", "Data")">Database</a></li> <!-- Using Razor Url.Action to generate the URL -->
-                    <li><a href="@Url.Action("About", "Home")">About</a></li> <!-- Using Razor Url.Action to generate the URL -->
-                </ul>
-            </div>
-        </nav>
-    </header>
 
-    <section class="create-post">
-        <h2>Create New Blog Post</h2>
-        <div class="container">
-            <form>
-                <label for="title">Title:</label>
-                <input type="text" id="title" name="title" required>
-                <label for="image">Image URL:</label>
-                <input type="url" id="image" name="image" required>
-                <label for="content">Content:</label>
-                <textarea id="content" name="content" rows="5" required></textarea>
-                <button type="submit" onclick="redirectToBlog()">Create Post</button>
-            </form>
+        .nav-link {
+            color: #ffffff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link:hover {
+            background-color: #070ff0a7;
+            border-radius: 5px;
+        }
+
+        .nav-link i {
+            margin-right: 10px;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <img src="~/img/favicon.ico" alt="Icon" width="30" height="30" style="margin-right: 10px;">
+                <div class="sidebar-brand-text mx-3">SPADE</div>
+            </a>
+            <!-- Sidebar links -->
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="~/">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Home Page</span>
+                </a>
+            </li>
+            <hr class="sidebar-divider">
+            <li class="nav-item active">
+                <a class="nav-link" href="~/grades">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Assessments/Grades</span>
+                </a>
+            </li>
+            <hr class="sidebar-divider">
+            <li class="nav-item active">
+                <a class="nav-link" href="~/performance">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Performance Trends</span>
+                </a>
+            </li>
+            <hr class="sidebar-divider">
+            <li class="nav-item active">
+                <a class="nav-link" href="~/about">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>About Page</span>
+                </a>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+        </ul>
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <!-- Topbar Search Form -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </nav>
+                <!-- End of Topbar Search Form -->
+                <!-- Main Content -->
+                <div class="container-fluid">
+                    <div id="example-table"></div>
+                    <button id="add-row-button" class="btn btn-primary mt-3">Add Row</button>
+                    <button id="edit-row-button" class="btn btn-secondary mt-3">Edit Row</button>
+                    <button id="delete-row-button" class="btn btn-danger mt-3">Delete Row</button>
+                </div>
+                <!-- End of Main Content -->
+                <!-- Modal for Adding/Editing Record -->
+                <div id="recordModal" class="modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalTitle">Add New Record</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="recordForm">
+                                    <input type="hidden" id="editRowId">
+                                    <div class="form-group">
+                                        <label for="name">Name:</label>
+                                        <input type="text" class="form-control" id="nameInput" name="name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="course">Course:</label>
+                                        <input type="text" class="form-control" id="courseInput" name="course" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="assessmentType">Assessment Type:</label>
+                                        <select class="form-control" id="assessmentTypeInput" name="assessmentType">
+                                            <option value="quiz">Quiz</option>
+                                            <option value="assignment">Assignment</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="grade">Grade:</label>
+                                        <input type="number" class="form-control" id="gradeInput" name="grade" min="0" max="100" required>
+                                    </div>
+                                    <button type="submit" id="submitRecordButton" class="btn btn-primary">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End of Modal -->
+            </div>
+            <!-- End of Content -->
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white fixed-bottom">
+                <div class="container text-center">
+                    <span class="text-muted">&copy; SPADE @DateTime.Now.Year</span>
+                </div>
+            </footer>
+            <!-- End of Footer -->
         </div>
-    </section>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+    <!-- JavaScript dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Tabulator library -->
+    <script src="https://unpkg.com/tabulator-tables/dist/js/tabulator.min.js"></script>
+    <script>
+        // JavaScript code goes here
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize Tabulator
+            var tableData = [
+                { id: 1, name: 'John Doe', course: 'Math', assessmentType: 'Quiz', grade: 85 },
+                { id: 2, name: 'Jane Smith', course: 'English', assessmentType: 'Assignment', grade: 92 },
+                // Add more data here...
+            ];
+            var table = new Tabulator("#example-table", {
+                data: tableData,
+                layout: "fitColumns",
+                responsiveLayout: "hide",
+                selectableRows: true,
+                history: true,
+                pagination: "local",
+                paginationSize: 20,
+                paginationCounter: "rows",
+                movableColumns: true,
+                initialSort: [{ column: "name", dir: "asc" }],
+                columns: [
+                    { title: "Name", field: "name", editor: "input" },
+                    { title: "Course", field: "course", editor: "input" },
+                    { title: "Assessment Type", field: "assessmentType", editor: "input" },
+                    { title: "Grade", field: "grade", editor: "input" }
+                ]
+            });
+            // Event listeners for modal and buttons go here
+        });
+    </script>
 </body>
 </html>
