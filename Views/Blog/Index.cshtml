@@ -1,113 +1,137 @@
-﻿@{
-    Layout = null; // Use this if you don't want to use a layout page
+@{
+    Layout = null; // Indicates this view doesn't use a shared layout
 }
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog - Travel Blog</title>
-    <link href="~/css/site.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Student Performance Analysis Dashboard Engine</title>
+
+    <!-- Custom fonts for this template -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="~/css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body>
-    <header>
-        <nav>
-            <div class="container">
-                <h1 class="logo">Travel Blog</h1>
-                <ul class="nav-links">
-                    <li><a href="@Url.Action("Index", "Home")">Home</a></li>
-                    <li><a href="@Url.Action("Index", "Blog")">Blog</a></li>
-                    <li><a href="@Url.Action("Index", "Data")">Data</a></li>
-                    <li><a href="@Url.Action("Index", "About")">About</a></li>
-                </ul>
+<body id="page-top">
+    <div id="wrapper">
+        <!-- Sidebar omitted for brevity -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <li class="sidebar-brand">
+                <a class="nav-link" href="#">
+                    <img src="~/img/favicon.ico" alt="Icon" width="30" height="30" style="margin-right: 10px;">
+                    <div class="sidebar-brand-text mx-3">SPADE</div>
+                </a>
+            </li>
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Home Page</span>
+                </a>
+            </li>
+            <hr class="sidebar-divider">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Assessments/Grades</span>
+                </a>
+            </li>
+            <hr class="sidebar-divider">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Performance Trends</span>
+                </a>
+            </li>
+            <hr class="sidebar-divider">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>About Page</span>
+                </a>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-        </nav>
-    </header>
+        </ul>
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <div class="container-fluid">
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Performance Stats</h1>
 
-    <section class="blog-posts">
-        <h2>Latest Travel Blog Posts</h2>
-        <div class="container">
-            <button class="cross-button" onclick="showAllPosts()">&#x2716;</button>
-            <article class="blog-post" onclick="toggleVisibility(this)">
-                <img src="https://images.unsplash.com/photo-1710839031473-27be50909585?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTcxMzQ1OTY2MA&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080" alt="Tokyo">
-                <h3>New York Big Apple Bytes</h3>
-                <div class="data">
-                    <p class="post-meta">Posted on April 18, 2024</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut felis at odio feugiat volutpat.</p>
-                    <button class="like-button">&#x1F44D; Like</button>
-                    <button class="dislike-button">&#x1F44E; Dislike</button>
-                    <span class="view-counter">Views: 0</span>
+                    <!-- Content Row -->
+                    <div class="row">
+                        <div class="col-xl-8 col-lg-7">
+                            <!-- Grade Ranges Bar Chart -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Grade Ranges</h6>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="gradeRangesChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </article>
-
-            <article class="blog-post" onclick="toggleVisibility(this)">
-                <img src="https://images.unsplash.com/photo-1710976329448-a5bbda1b1a83?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTcxMzQ1OTcyNw&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080" alt="Paris">
-                <h3>A Week in Paris: The City of Love</h3>
-                <div class="data">
-                    <p class="post-meta">Posted on April 18, 2024</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut felis at odio feugiat volutpat.</p>
-                    <button class="like-button">&#x1F44D; Like</button>
-                    <button class="dislike-button">&#x1F44E; Dislike</button>
-                    <span class="view-counter">Views: 0</span>
+            </div>
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="text-center">
+                        <span>Copyright &copy; SPADE @DateTime.Now.Year</span>
+                    </div>
                 </div>
-            </article>
-
-            <article class="blog-post" onclick="toggleVisibility(this)">
-                <img src="https://images.unsplash.com/photo-1510797215324-95aa89f43c33?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YmFsaXx8fHx8fDE3MTM0NTk3NjM&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080" alt="Bali">
-                <h3>Discovering the Beauty of Bali</h3>
-                <div class="data">
-                    <p class="post-meta">Posted on April 18, 2024</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut felis at odio feugiat volutpat.</p>
-                    <button class="like-button">&#x1F44D; Like</button>
-                    <button class="dislike-button">&#x1F44E; Dislike</button>
-                    <span class="view-counter">Views: 0</span>
-                </div>
-            </article>
-
-            <article class="blog-post" onclick="toggleVisibility(this)">
-                <img src="https://images.unsplash.com/photo-1710839031473-27be50909585?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTcxMzQ1OTY2MA&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080" alt="Tokyo">
-                <h3>Exploring the Beauty of India</h3>
-                <div class="data">
-                    <p class="post-meta">Posted on April 18, 2024</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut felis at odio feugiat volutpat.</p>
-                    <button class="like-button">&#x1F44D; Like</button>
-                    <button class="dislike-button">&#x1F44E; Dislike</button>
-                    <span class="view-counter">Views: 0</span>
-                </div>
-            </article>
-
-            <article class="blog-post" onclick="toggleVisibility(this)">
-                <img src="https://source.unsplash.com/featured/?mountain" alt="Bali">
-                <h3>Switzerland the beauty of world</h3>
-                <div class="data">
-                    <p class="post-meta">Posted on April 18, 2024</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut felis at odio feugiat volutpat.</p>
-                    <button class="like-button">&#x1F44D; Like</button>
-                    <button class="dislike-button">&#x1F44E; Dislike</button>
-                    <span class="view-counter">Views: 0</span>
-                </div>
-            </article>
-
-
-            <!-- Add other articles here -->
-
-
+            </footer>
         </div>
-        <div>
-            <button class="edit-button" style="display: none;" onclick="alert('Edit functionality will be implemented soon!')">
-                <a>Edit</a>
-            </button>
-            <button class="delete-button" style="display: none;" onclick="alert('Delete functionality will be implemented soon!')">
-                <a>Delete</a>
-            </button>
-        </div>
-    </section>
-    <button class="create-button"><a href="~/Create" style="text-decoration: none; color: inherit;">Create</a></button>
-    <div class="link-image">
-        <img src="https://i.postimg.cc/90GjJBgH/Assignment-3-Viz.png" alt="">
     </div>
-    <script src="~/js/site.js"></script>
 
+    <!-- Bootstrap core JavaScript -->
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript -->
+    <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages -->
+    <script src="~/js/sb-admin-2.min.js"></script>
+
+    <!-- Dummy Data and Chart Scripts -->
+    <script>
+        // Dummy data for grade ranges bar chart
+        const gradeRangesData = {
+            labels: ['0-60', '61-70', '71-80', '81-90', '91-100'],
+            datasets: [{
+                label: 'Grade Range',
+                backgroundColor: ['#ff6b6b', '#f9ca24', '#00b894', '#0984e3', '#6c5ce7'],
+                data: [10, 20, 30, 25, 15] // Sample data (number of students in each range)
+            }]
+        };
+
+        // Initialize chart
+        document.addEventListener('DOMContentLoaded', function () {
+            // Grade Ranges Bar Chart
+            new Chart(document.getElementById('gradeRangesChart'), {
+                type: 'bar',
+                data: gradeRangesData,
+                options: {
+                    legend: { display: false },
+                    scales: {
+                        xAxes: [{ gridLines: { display: false } }],
+                        yAxes: [{ ticks: { beginAtZero: true } }]
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
