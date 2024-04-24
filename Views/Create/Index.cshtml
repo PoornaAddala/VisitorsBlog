@@ -143,6 +143,18 @@
                                         <label for="grade">Grade:</label>
                                         <input type="number" class="form-control" id="gradeInput" name="grade" min="0" max="100" required>
                                     </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="course">Strengths:</label>
+                                        <input type="text" class="form-control" id="strengthid" name="Strength" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="course">Areas to Improve:</label>
+                                        <input type="text" class="form-control" id="Weak" name="Weak" required>
+                                    </div>
+
+                                    
                                     <button type="submit" id="submitRecordButton" class="btn btn-primary">Submit</button>
                                 </form>
                             </div>
@@ -178,9 +190,9 @@
         document.addEventListener('DOMContentLoaded', function () {
             // Initialize Tabulator
             var tableData = [
-                { id: 1, name: 'John Doe', course: 'Math', assessmentType: 'Quiz', grade: 85 },
-                { id: 2, name: 'Jane Smith', course: 'English', assessmentType: 'Assignment', grade: 92 },
-                // Add more data here...
+                { id: 1, name: 'John Doe', course: 'Math', assessmentType: 'Quiz', grade: 85, strength: 'Algebra, Calucus', AreasToImprove: 'Geometry' },
+                { id: 2, name: 'Jane Smith', course: 'English', assessmentType: 'Assignment', grade: 92, strength: 'Algebra, Calucus', AreasToImprove: 'Geometry'  },
+                
             ];
             var table = new Tabulator("#example-table", {
                 data: tableData,
