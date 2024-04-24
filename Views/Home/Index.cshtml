@@ -1,39 +1,121 @@
-﻿@{
-    Layout = null; // Set layout to null to exclude layout from this page
+@{
+    Layout = null; // Assuming no layout is needed
 }
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travel Blog - Home</title>
-    <link rel="stylesheet" href="~/css/site.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Student Performance Analysis Dashboard Engine</title>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <!-- Custom styles for this template-->
+    <link href="~/css/sb-admin-2.min.css" rel="stylesheet">
+    <style>
+        .sidebar {
+            background-color: #08a8f1;
+        }
+
+        .nav-link {
+            color: #ffffff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link:hover {
+            background-color: #070ff0a7;
+            border-radius: 5px;
+        }
+
+        .nav-link i {
+            margin-right: 10px;
+        }
+    </style>
 </head>
-<body>
-    <header>
-        <nav>
-            <div class="container">
-                <h1 class="logo">Travel Blog</h1>
-                <ul class="nav-links">
-                    <li><a href="@Url.Action("Index", "Home")">Home</a></li>
-                    <li><a href="@Url.Action("Index", "Blog")">Blog</a></li>
-                    <li><a href="@Url.Action("Index", "Data")">Data</a></li>
-                    <li><a href="@Url.Action("Index", "About")">About</a></li>
-                </ul>
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <img src="~/img/favicon.ico" alt="Icon" width="30" height="30" style="margin-right: 10px;">
+                <div class="sidebar-brand-text mx-3">SPADE</div>
+            </a>
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="~/">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Home Page</span>
+                </a>
+            </li>
+            <hr class="sidebar-divider">
+            <li class="nav-item active">
+                <a class="nav-link" href="~/grades.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Assessments/Grades</span>
+                </a>
+            </li>
+            <hr class="sidebar-divider">
+            <li class="nav-item active">
+                <a class="nav-link" href="~/performance.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Performance Trends</span>
+                </a>
+            </li>
+            <hr class="sidebar-divider">
+            <li class="nav-item active">
+                <a class="nav-link" href="~/about.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>About Page</span>
+                </a>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-        </nav>
-    </header>
-
-    <section class="hero">
-        <a class="prev" onclick="changeBackground()">&larr;</a>
-        <div class="container">
-            <h2>Welcome to Our Travel Blog!</h2>
-            <p>Explore the world with us and discover new adventures.</p>
+        </ul>
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <div class="row">
+                    <div class="col-md-8 offset-md-2 text-center">
+                        <h1 class="display-4 mb-4">Welcome to SPADE</h1>
+                        <p class="lead">The Student Performance Analysis Dashboard Engine (SPADE) is a powerful tool designed to help educators and administrators gain valuable insights into student performance and make data-driven decisions.</p>
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <div style="text-align: center;">
+                        <img src="~/img/home.jpeg" alt="Pixels Image" style="width: 97%; max-width: 100%; height: 800px; object-fit: contain; padding-top: 0.01%;">
+                    </div>
+                </div>
+                <div class="col-md-8 offset-md-2 text-center">
+                    <hr class="my-5">
+                    <p class="lead1">With SPADE, you can:</p>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-check text-success mr-2"></i> Analyze assessment data and track student progress</li>
+                        <li><i class="fas fa-check text-success mr-2"></i> Identify performance trends and areas for improvement</li>
+                        <li><i class="fas fa-check text-success mr-2"></i> Generate comprehensive reports and visualizations</li>
+                        <li><i class="fas fa-check text-success mr-2"></i> Collaborate with colleagues and share insights</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- End of Content -->
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; SPADE @DateTime.Now.Year</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
         </div>
-        <a class="next" onclick="changeBackground()">&rarr;</a>
-    </section>
-
-    <script src="~/js/site.js"></script>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 </body>
 </html>
